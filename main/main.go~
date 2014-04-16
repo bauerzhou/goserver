@@ -1,0 +1,10 @@
+package main
+
+import "server"
+
+func main(){
+	appjob := server.AppJob{JobName:"test"}
+	sr := server.Server{}
+	sr.Run()	
+	
+}
