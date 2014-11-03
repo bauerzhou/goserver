@@ -38,7 +38,9 @@ type GLoger struct {
 	loglevel  		int
 }
 
-
+func init(){
+	Init("./", "log")
+}
 
 func New(prepath, prename string) (*GLoger, error){
 	name := fmt.Sprint(prepath, prename, ".log")
