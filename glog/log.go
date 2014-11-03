@@ -53,7 +53,13 @@ func New(prepath, prename string) (*GLoger, error){
 
 //	return nil, nil
 
-	return &GLoger{PrefixPath:prepath, PrefixName:prename,  MaxSizePerLog:1024*1024*4, MaxFileNum: 1000, CurIndex:0,loger:log.New(w, "", log.LstdFlags)},nil
+	return &GLoger{PrefixPath:prepath, 
+					PrefixName:prename,  
+					MaxSizePerLog:1024*1024*4, 
+					MaxFileNum: 1000, 
+					CurIndex:0,
+					loger:log.New(w, "", log.LstdFlags)} ,
+					nil
 }
 
 var l *GLoger
