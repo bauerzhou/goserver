@@ -34,7 +34,7 @@ type GLoger struct {
 	PrefixName		string
 	PrefixPath		string
 
-	loger			*log.Logger
+	//loger			*log.Logger
 	loglevel  		int
 }
 
@@ -51,14 +51,14 @@ func New(prepath, prename string) (*GLoger, error){
 		return nil, err
 	}
 
-//	return nil, nil
+	log.SetOutput(w)
 
 	return &GLoger{PrefixPath:prepath, 
 					PrefixName:prename,  
 					MaxSizePerLog:1024*1024*4, 
 					MaxFileNum: 1000, 
 					CurIndex:0,
-					loger:log.New(w, "", log.LstdFlags)} ,
+					} ,
 					nil
 }
 
@@ -67,12 +67,12 @@ var l *GLoger
 func (this *GLoger) createWriter() error {
 	this.CurIndex = (this.CurIndex + 1) % this.MaxFileNum
 	name := this.PrefixPath+this.PrefixName+strconv.Itoa(this.CurIndex)+".log"
-	_ , err := os.Create(name)
+	w , err := os.Create(name)
 	if err != nil {
 		return err
 	}
 
-	//this.loger.SetOutput(w)
+	log.SetOutput(w)
 
 	return nil
 }
@@ -103,8 +103,8 @@ func (this *GLoger) Log(level int, v ...interface{}){
 		default:
 			prefix = STR_LOG_UNKNOW
 	}
-	this.loger.SetPrefix(prefix)
-	this.loger.Print(v...)
+	log.SetPrefix(prefix)
+	log.Print(v...)
 }
 
 func Init(prepath, prename string) error {
